@@ -1,0 +1,28 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+{% block css %}
+<style>
+    .img-fluid {
+        max-width: 100%;
+        height: auto;
+        position: absolute;
+        left: 520px;
+        top: 120px;
+    }
+</style>
+{% endblock css %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row my-5">
+        <div class="col-md-12">
+            <h1 style="text-transform: capitalize; text-align: center; font-weight: 600; outline: blue;">
+                there is no item in cart
+            </h1>
+            <img src="{% static 'emptycart.png' %}"
+                class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="">
+        </div>
+    </div>
+</div>
+{% endblock body %}

@@ -1,0 +1,132 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+{% block css %}
+<style>
+    .div {
+        width: 80vh;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border: 3px solid darkblue;
+        border-block-color: inherit;
+        box-shadow: 3px 8px 5px;
+        transform: translate(-50%, -50%);
+
+    }
+
+    a:hover {
+        text-decoration: none;
+
+
+    }
+
+    .login1 {
+        position: relative;
+        border: none;
+        margin: 4px;
+        background-color: darkblue;
+    }
+
+    .login1 a {
+        color: white;
+    }
+
+    .login1 a :hover {
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    #logout {
+        text-transform: capitalize;
+        position: relative;
+        left: 182px;
+    }
+
+    #logout:hover {
+        color: rgb(6, 6, 48);
+        text-decoration: none;
+    }
+
+    #change_password {
+        text-transform: capitalize;
+        position: relative;
+        left: 190px;
+    }
+
+    #change_password:hover {
+        color: rgb(6, 6, 48);
+        text-decoration: none;
+    }
+
+    #user_profile {
+        height: 100px;
+        width: 100px;
+        position: relative;
+        top: 1px;
+        left: 238px;
+    }
+
+    #profile_title {
+        position: relative;
+
+        left: 209px;
+        text-transform: capitalize;
+    }
+
+    #user_name {
+        position: relative;
+        text-transform: capitalize;
+        left: 66px;
+    }
+
+   
+
+    #show_profile {
+        position: relative;
+        left: 310px;
+        text-transform: capitalize;
+        top: -22px;
+        font-size: larger;
+    }
+</style>
+{% endblock css %}
+
+
+
+
+
+{% block body %}
+<div class="div">
+    <img src="{% static 'img/user_profile.png' %}" id="user_profile" alt="">
+    
+
+    <div class="card">
+
+        <div class="card-body">
+            <h4 class="card-title" id="profile_title">Dashbord</h4>
+            <h1 class="card-title"><strong>
+                    <p id="user_name"> welcome {{user.username|default:'Guest'}} </p>
+                </strong></h1>
+            {% if user.is_authenticated %}
+            <a href="{% url 'show_profile' %}" id="show_profile">show profile</a>
+            <a href="{% url 'logout' %}" id="logout">logout</a>
+
+            <a href="{% url 'password_change' %} " id="change_password">password_change</a>
+
+            {% else %}
+            <div class="login">
+                <button class="login1"> <a href="{% url 'login' %}">login</a></button>
+
+            </div>
+            <div class="sing">
+                <button class="login1"> <a href="#">create new account</a></button>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+
+{% endblock body %}
