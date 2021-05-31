@@ -75,7 +75,7 @@
     <hr>
     <p>Product Description:{{product.detail}} </p> <br>
     <h4>Rs. {{product.price}} <br> <small class="fw-light text-decoration-line-through">discount{{product.discount}}%</small></h4> <br>
-    <a href=" {% url 'add_to_cart' %}" class="btn btn-primary shadow px-5 py-2">Add to Cart</a>
+    <a href=" {% url 'add_to_cart' %}?pid={{product.id}}" class="btn btn-primary shadow px-5 py-2">Add to Cart</a>
     <a href="" class="btn btn-danger shadow px-5 py-2 ms-4">Buy Now</a>
     <h5 class="mt-5">Available Offers</h5>
     <ul>

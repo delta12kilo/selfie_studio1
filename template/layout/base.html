@@ -8,15 +8,22 @@
     {% endblock css %}
 
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap');
+
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
         nav {
+            width: 100vw;
             height: 100px;
             background-color: black;
             color: rgb(241, 238, 231);
             cursor: pointer;
-            position: sticky;
+
+
         }
 
         .header {
+
             flex-direction: row;
             display: flex;
             justify-content: space-around;
@@ -50,12 +57,16 @@
             text-decoration: none;
         }
 
+        @import url('https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Merienda+One&display=swap');
+
         .logo {
             font-weight: 900;
             font-size: xx-large;
             margin-bottom: 3px;
             position: relative;
-            top: -9px;
+            font-family: 'Berkshire Swash', cursive;
+            font-family: 'Merienda One', cursive;
+            top: 0px;
         }
 
         #input1 {
@@ -118,7 +129,9 @@
 
     <nav>
         <ul class="header">
-            <li><span class="logo">SELFIE_STUDIO</span></li>
+            <li><a href="{% url 'home' %}">
+                    <h3 class="logo">SELFIE_STUDIO</h3>
+                </a></li>
 
             <li>
                 <form action="/search">
@@ -182,45 +195,22 @@
                 </a>
             </li>
             <li> <a class=" mx-4" href="{% url 'registration' %}" role="button">
-                Signup
-            </a>
-        </li>
+                    Signup
+                </a>
+            </li>
             {% endif %}
         </ul>
 
     </nav>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     {% block body %}
 
     {% endblock body %}
 
 
 
+    {% block footer %}
 
-    <footer>
-
-
-
-
-
-
-
-    </footer>
-
+    {% endblock footer %}
 
 
 

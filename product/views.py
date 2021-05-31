@@ -10,7 +10,7 @@ from django.db.models import Q
 def count_cart_items(request):
     if request.user.is_authenticated:
         count = Cart.objects.filter(user=request.user).count()
-        print(count)
+    
         return count
     else:
         return 0
@@ -56,8 +56,11 @@ def checkout(request):
 
 def search(request):
     search = request.GET.get('search')
-    print(search)
-    search_res = Products.objects.filter(name__contains=search)
+    if search:
+        search_res = Products.objects.filter(name__contains=search)
+    else:
+        search_res = Products.objects.filter(cat__contains=search)
+
 
     return render(request, "search.html", {'search_res': search_res})
 
@@ -65,6 +68,8 @@ def search(request):
 def show_product(request, id):
     pro = Products.objects.all()
     product = Products.objects.get(id=id)
+
+    
 
     return render(request, "product/showproduct.html", {"product": product, 'cart_count': count_cart_items(request), 'pro': pro})
 
@@ -105,7 +110,7 @@ def plus_cart(request):
         c.save()
         amount = 0.0
         shipping_amount = 50.0
-        cart_product = [p for p in Cart.objects.all() if p.user ==request.user]
+        cart_product = [p for p in Cart.objects.all() if p.user==request.user]
         for p in cart_product:
             tempamount = (p.quantity*p.product.price)
             amount += tempamount
