@@ -2,11 +2,19 @@
 {% load crispy_forms_tags %}
 {% load static %}
 
+{% block css %}
+    <style>
+        .login{
+            margin-bottom: 280px;
+        }
+    </style>
+{% endblock css %}
+    
 
 {% block body %}
-<div class="container">
+<div class="container  login">
     <div class="row my-3">
-        <div class="col-sm-6 offset-sm-3">
+        <div class="col-sm-6 offset-sm-3 my-4">
             <h3>Login</h3>
             <hr>
             <form action="" method="post" novalidate class="shadow p-5">
@@ -15,7 +23,7 @@
                     {{form|crispy}}
                 </div>
                
-                <small><a href="#">Forgot Password ?</a></small> <br>
+                <small><a href="{% url 'password_reset' %}">Forgot Password ?</a></small> <br>
                 <input type="submit" class="btn btn-primary mt-4" value="Login">
                 <br>
                 <div class="text-center text-primary fw-bold"><small>New to SELFIE_STUDIO ? <a

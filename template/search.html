@@ -15,10 +15,13 @@
   .form{
     width: 100vw;
   }
+  .searchpage{
+    margin-bottom: 140px;
+  }
 </style>
 {% endblock %}
 {% block body %}
-<div class="container mt-4 md-4">
+<div class="container mt-4 md-4 searchpage">
  
      
   <div class="row">
@@ -30,7 +33,7 @@
           <h5 class="card-title">
             {{i.cat}}
           </h5>
-          <img class="card-img" src="media/{{i.heroimage}} " alt="{{i.title}} ">
+          <img class="card-img" src="media/{{i.image}} " alt="{{i.title}} ">
           <h5 class="text-muted">
             {{i.name}}
           </h5>
@@ -47,7 +50,7 @@
             Discount:-: {{i.discount}}
           </span>
           <div id="btndiv">
-            <a class="btn btn-light mx-4" href="{% url 'add_to_cart' %}?pid={{i.id}}" role="button">
+            <a class="btn btn-light mx-4" href="{% url 'cart_add' i.id %}" role="button">
               add to cart
             </a>
             <a class="btn btn-light" href="{% url 'show_product' i.id %}" role="button">

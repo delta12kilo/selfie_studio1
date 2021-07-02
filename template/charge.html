@@ -1,0 +1,18 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% load cart_tag %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+<h2>Thanks, you paid <strong>{% for key,value in request.session.cart.items %}
+    total-amount={{ value.price|multiply:value.quantity }}
+    {% endfor %}
+    
+    
+        
+   
+        
+</strong>!</h2>
+{% endblock body %}
+    

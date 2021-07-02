@@ -4,27 +4,47 @@
 
 
 
+{% block css %}
+
+<style>
+    .edit{
+        margin-top: 40px;
+        width: 80vw;
+        margin-bottom: 220px;
+        margin-left: 40px;
+    }
+    .editprofile{
+        margin-top: 100px;
+    }
+ 
+</style>
+{% endblock css %}
+
+
 
 
 
 
 {% block body %}
-
-<div class="container my-5">
-    <div class="row">
+<div class="edit">
+    <div class="row editprofile" >
 
         <div class="col-sm-2 border-end">
             <ul class="list-unstyled">
                 <h3 style="text-align: center;letter-spacing: 2px;">
                     Welcome{{user.username}} </h3>
                 <br>
-                <li class="d-grid"><a href="" class="btn {{active}}" style="width: 200px;">Profile</a></li>
+                <li class="d-grid"><a href="{% url 'dashbord' %}" class="btn btn-dark " style="width: 200px;">Dashbord</a></li>
                 <br>
-                <li class="d-grid"><a href="{% url 'adderss' %}" class="btn " style="width: 200px;">Show_profile</a></li>
+                <li class="d-grid"><a href="{% url 'home' %}" class="btn  btn-dark" style="width: 200px;">Home</a>
+                </li>
             </ul>
         </div>
         <hr>
         <div class="col-sm-8 offset-sm-1">
+            <h1 style="text-transform: capitalize;">
+                edit profile
+            </h1>
             <form action="" method="post">
 
                 {% csrf_token %}
@@ -33,7 +53,7 @@
                 </div>
 
                 <div class="col-12 mt-3">
-                    <button type="submit" class="btn {{active}} ">Submit</button>
+                    <button type="submit" class="btn  btn-dark" >Submit</button>
                 </div>
                 {% if messages %}
 
@@ -50,10 +70,5 @@
         </div>
     </div>
 </div>
-
-
-
-
-
 
 {% endblock body %}

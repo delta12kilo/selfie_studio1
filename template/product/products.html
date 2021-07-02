@@ -1,13 +1,9 @@
 {% extends 'layout/base.html' %}
+
 {% block css %}
 <style>
-  .card {
-    height: 600px;
-    
-  }
-
   #btndiv {
-    top: 60px;
+    top: 10px;
     position: relative;
     color: darkblue;
     text-transform: capitalize;
@@ -15,42 +11,57 @@
     justify-content: space-between;
     right: 10px;
   }
-  .form{
-    width: 100vw;
+
+  .card {
+    width: 400px;
+    height: 600px;
+  }
+
+  .productpage {
+    margin-left: 60px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 90vw;
+  }
+
+  .form {
+    text-transform: capitalize;
+
+    width: 90vw;
   }
 </style>
 {% endblock %}
 {% block body %}
-<div class="container mt-4 ">
+<div class="productpage">
   <div class="row">
-      
-    <form action="" class="form">
+    <div class="col">
+      <form action="" class="form">
         <div class="form-group">
-            <label for="cat">Category</label>
-            <select class="form-control" name="DATA" id="DATA">
-                <option>wedding</option>
-                <option>brithday</option>
-                <option>photoshot</option>
-                <option>themes</option>
-            </select>
+          <label for="cat" style="font-size: larger;">Category</label>
+          <select class="form-control" name="DATA" id="DATA">
+            <option>wedding</option>
+            <option>brithday</option>
+            <option>photoshot</option>
+            <option>themes</option>
+          </select>
         </div>
         <button class="btn btn-sm btn-outline-warning mt-1">
-            Filler
+          Filler
         </button>
-    </form>
+      </form>
+    </div>
+  </div>
 
-</div>
-     
   <div class="row">
-    
-   {% for i in product %}
-    <div class="col-md-4 mt-4">
-      <div class="card shadow-lg">
-        <div class="card-body" ">
-          <h5 class="card-title">
+
+    {% for i in product %}
+    <div class="col-md-3 mt-2 ">
+      <div class="card ">
+        <div class="card-body" style="max-width: 400px;">
+          <h5 class=" card-title">
             {{i.cat}}
           </h5>
-          <img class="card-img" src="media/{{i.heroimage}} " alt="{{i.title}} ">
+          <img class="card-img" src="media/{{i.image}} " alt="{{i.title}} ">
           <h5 class="text-muted">
             {{i.name}}
           </h5>
@@ -67,12 +78,16 @@
             Discount:-: {{i.discount}}
           </span>
           <div id="btndiv">
-            <a class="btn btn-light mx-4" href="{% url 'add_to_cart' %}?pid={{i.id}}" role="button">
+            <a class="btn btn-light mx-4" href="{% url 'cart_add' i.id %}" role="button">
               add to cart
             </a>
+
+            
             <a class="btn btn-light" href="{% url 'show_product' i.id %}" role="button">
               quick view
-            </a>
+            </a> 
+            
+
           </div>
         </div>
       </div>
@@ -84,3 +99,4 @@
 
 
 {% endblock %}
+

@@ -6,8 +6,9 @@
 
 {% block body %}
 <div class="container my-5">
+
+    <h1 class="text-center mb-5">Shopping Cart</h1>
     <div class="row">
-        <h1 class="text-center mb-5">Shopping Cart</h1>
         <div class="col-sm-8">
             <div class="card">
                 <div class="card-body">
@@ -27,18 +28,25 @@
                                 <h5>{{i.product.name}} </h5>
                                 <p class="mb-2 text-muted small">{{i.product.detail|slice:10}}</p>
                                 <div class="my-3">
-                                    <label for="quantity">{{i.quantity}} </label>
-                                    <a class="minus-cart btn" pid='{{cart.product.id}} '><i
-                                            class="fas fa-minus-square fa-lg"></i></a>
-                                    <span id="quantity">3</span>
-                                    <a class="plus-cart btn" pid='{{cart.product.id}}'><i
-                                            class="fas fa-plus-square fa-lg"></i></a>
+
+
+
+                                    <button class="minus-cart btn" pid='{{cart.product.id}} ' onclick="minus()"> <i
+                                            class="fas fa-minus-square fa-lg"> </i></button>
+                                    <span id="quantity" class="value"><input type="hidden" name="value">0 </span>
+                                    <button class="plus-cart btn" pid='{{cart.product.id}}' " onclick="pluse()"> <i
+                                                class=" fas fa-plus-square fa-lg"></i><input type="hidden"
+                                            name="pluse"> </button>
                                 </div>
+
                                 <div class="d-flex justify-content-between">
-                                    <a href="#" class="btn btn-sm btn-secondary mr-3" pid='{{cart.product.id}}'>Remove
+                                    <button href="#" class="btn btn-sm btn-secondary mr-3"
+                                        pid='{{cart.product.id}}'>Remove
                                         item
-                                    </a>
-                                    <p class="mb-0"><span><strong>Rs. 110.00</strong></span></p>
+                                    </button>
+
+                                    <p class="mb-0 "><span>Rs.<strong class="price">{{i.product.price}} </strong></span>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -68,61 +76,41 @@
                             <div>
                                 <strong>Total</strong> <small>(including VAT)</small>
                             </div>
-                            <span><strong>Rs.{{totalamount}} </strong></span>
+                            <span class="total"><strong>Rs.{{totalamount}} </strong></span>
                         </li>
                     </ul>
                     <div class="d-grid"><a href="" class="btn btn-primary">Place Order</a></div>
                 </div>
             </div>
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-8">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="mb-4">We accept</h5>
-                            <img src="" alt="" class="img-fluid">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
     </div>
 </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 {% block js %}
+<script>
 
+    let count = 0;
+
+    function plus() {
+        count++;
+        console.log(count);
+        document.querySelector(".value").innerHTML = count;
+
+
+
+    }
+
+    function minus() {
+        count++;
+        console.log(count);
+        document.querySelector(".value").innerHTML = count;
+
+
+    }
+
+</script>
 {% endblock js %}
 
 

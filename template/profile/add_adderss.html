@@ -1,0 +1,71 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+
+
+{% block css %}
+    <style>
+        .edit{
+            margin-top: 40px;
+            width: 80vw;
+            margin-bottom: 360px;
+            margin-left: 40px;
+        }
+    </style>
+{% endblock css %}
+    
+
+
+
+{% block body %}
+
+<div class="edit">
+    <div class="row">
+
+        <div class="col-sm-2 border-end">
+            <ul class="list-unstyled">
+                <h3 style="text-align: center;letter-spacing: 2px;">
+                    Welcome{{user.username}} </h3>
+                <br>
+                <li class="d-grid"><a href="{% url 'dashbord' %}" class="btn " style="width: 200px;">Dashbord</a></li>
+                <br>
+                <li class="d-grid"><a href="{% url 'add_adderss' %}" class="btn " style="width: 200px;">adderss</a>
+                </li>
+            </ul>
+        </div>
+        <hr>
+        <div class="col-sm-8 offset-sm-1">
+            <form action="" method="post">
+
+                {% csrf_token %}
+                <div class="col-12">
+                    {{form|crispy}}
+                </div>
+
+                <div class="col-12 mt-3">
+                    <button type="submit" class="btn {{active}} ">Submit</button>
+                </div>
+                {% if messages %}
+
+                {% for message in messages %}
+                <p {% if message.tags %} class="alert alert-{{message.tags}} mb-5" {% endif %}>
+                    {{message}}
+                </p>
+
+                {% endfor %}
+
+
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock body %}

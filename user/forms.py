@@ -3,8 +3,9 @@ from django.contrib.auth import models
 from django.contrib.auth.forms import UserCreationForm, UsernameField
 from django.contrib.auth.models import  User
 from django.contrib.auth.forms import AuthenticationForm ,UsernameField
+from django.forms.models import ModelForm
 from django.utils.translation import gettext,gettext_lazy as _
-from .models import UserProfile
+from .models import UserProfile,Adderss
 from django.forms import fields, widgets
 
 class CustomerRegistrationForm(UserCreationForm):
@@ -38,12 +39,27 @@ class LoginForm(AuthenticationForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields=['name','DOB','state','gender','add','city','phone']
+        fields=['name','DOB','gender','phone','img']
         widgets={'name':forms.TextInput(attrs={'class':'form-control'}),
         'DOB':forms.TextInput(attrs={'class':'form-control'}),
-        'state':forms.TextInput(attrs={'class':'form-control'}),
+        #'img':forms.TextInput(attrs={'class':'form-control'}),
         'gender':forms.TextInput(attrs={'class':'form-control'}),
+      #  
+        }
+
+class AdderssForm(forms.ModelForm):
+    """Form definition for Adderss."""
+
+    class Meta:
+        """Meta definition for Adderssform."""
+
+        model = Adderss
+        fields = ('add','state','city','zipcode')
+        widgets={'state':forms.TextInput(attrs={'class':'form-control'}),
         'add':forms.TextInput(attrs={'class':'form-control'}),
         'city':forms.TextInput(attrs={'class':'form-control'}),
-        'phone':forms.TextInput(attrs={'class':'form-control'})
+        'zipcode':forms.TextInput(attrs={'class':'form-control'})
         }
+
+
+

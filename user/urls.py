@@ -11,10 +11,10 @@ urlpatterns = [
    
     path('accounts/',include('django.contrib.auth.urls')),
     path("registration",views.CustomerRegistrationView,name="registration"),
-    path("show_profile",views.show_profile,name="show_profile"),
     path("edit_profile",views.edit_profile,name="edit_profile"),
+    path("add_adderss",views.add_adderss,name="add_adderss"),
     path("adderss",views.address,name='adderss'),
-    
+    path("dashbord",views.dashbord,name="dashbord"),
     path('accounts/login/',auth_views.LoginView.as_view(template_name='registration/login.html'))
 
 ]

@@ -25,24 +25,30 @@
     position: relative;
     top: 100px;
   }
-   #img-card{
+
+  #img-card {
     height: 300px;
     width: 275px;
-    
+
   }
-  p{
+
+  p {
     text-transform: capitalize;
   }
-  .heading{
+
+  .heading {
     text-align: center;
     text-transform: capitalize;
   }
-  .div{
-    
+
+  .div {
+
     position: relative;
-    top: 100px;
+    top: 1px;
+    margin-bottom: 7px;
   }
-  #btn2{
+
+  #btn2 {
     justify-content: space-between;
     top: 10px;
     display: flex;
@@ -51,7 +57,6 @@
     text-transform: capitalize;
     right: 15px;
   }
-
 </style>
 
 {% endblock css %}
@@ -67,26 +72,27 @@
 
 <div class="container my-5">
   <div class="row">
-   <div class="col-sm-6 text-center align-self-center">
-    <img src="/media/{{product.heroimage}}" alt="" class="img-fluid img-thumbnail">
-   </div>
-   <div class="col-sm-5 offset-sm-1">
-    <h2>{{product.name}}</h2>
-    <hr>
-    <p>Product Description:{{product.detail}} </p> <br>
-    <h4>Rs. {{product.price}} <br> <small class="fw-light text-decoration-line-through">discount{{product.discount}}%</small></h4> <br>
-    <a href=" {% url 'add_to_cart' %}?pid={{product.id}}" class="btn btn-primary shadow px-5 py-2">Add to Cart</a>
-    <a href="" class="btn btn-danger shadow px-5 py-2 ms-4">Buy Now</a>
-    <h5 class="mt-5">Available Offers</h5>
-    <ul>
-     <li>Bank Offer 5% Unlimited Cashback on Flipkart Axis Bank Credit</li>
-     <li>Special Price Get extra ₹3000 off (price inclusive of discount)</li>
-     <li>No cost EMI ₹1,667/month. Standard EMI also available</li>
-     <li>Partner Offer ₹2000 Flipkart Gift Card on Every 1000th Transaction with a new Visa Debit/Credit Card</li>
-    </ul>
-   </div>
+    <div class="col-sm-6 text-center align-self-center">
+      <img src="/media/{{product.image}}" alt="" class="img-fluid img-thumbnail">
+    </div>
+    <div class="col-sm-5 offset-sm-1">
+      <h2>{{product.name}}</h2>
+      <hr>
+      <p>Product Description:{{product.detail}} </p> <br>
+      <h4>Rs. {{product.price}} <br> <small
+          class="fw-light text-decoration-line-through">discount{{product.discount}}%</small></h4> <br>
+      <a href=" {% url 'cart_add' product.id %}" class="btn btn-primary shadow px-5 py-2">Add to Cart</a>
+      <a href="" class="btn btn-danger shadow px-5 py-2 ms-4">Buy Now</a>
+      <h5 class="mt-5">Available Offers</h5>
+      <ul>
+        <li>Bank Offer 5% Unlimited Cashback on Flipkart Axis Bank Credit</li>
+        <li>Special Price Get extra ₹3000 off (price inclusive of discount)</li>
+        <li>No cost EMI ₹1,667/month. Standard EMI also available</li>
+        <li>Partner Offer ₹2000 Flipkart Gift Card on Every 1000th Transaction with a new Visa Debit/Credit Card</li>
+      </ul>
+    </div>
   </div>
- </div>
+</div>
 
 
 
@@ -114,45 +120,45 @@
 <div class="div">
 
 
-<h1 class="heading">
-    
-  more  Products
-</h1>
+  <h1 class="heading">
 
-<div class="row">
-  
-  {% for i in pro|slice:8 %}
-  <div class="col-md-3 mt-4 ">
-    <div class="card shadow-lg">
-      <div class="card-body">
-        <h5 class="card-title">
-          {{i.cat}}
-        </h5>
-        <img class="card-img " id="img-card" src="/media/{{i.heroimage}} " alt="{{i.title}} ">
-        <h5 class="text-muted">
-          {{i.name|slice:40}}
-        </h5>
-        <p class="text-muted">
-          price
-          <i class="fas fa-rupee-sign "> {{i.price }}</i>
-        </p>
-        <span class="badge badge-pill badge-warning">
-          Discount:-: {{i.discount}}
-        </span>
-        <div id="btn2" >
-          <a class="btn btn-light mx-4" href="{% url 'add_to_cart' %}?pid={{i.id}}" role="button">
-            add to cart
-          </a>
-          <a class="btn btn-light" href="{% url 'show_product' i.id %}" role="button">
-            quick view
-          </a>
+    more Products
+  </h1>
+
+  <div class="row" style="text-transform: capitalize;">
+
+    {% for i in pro|slice:8 %}
+    <div class="col-md-3 mt-4  " style="text-transform: capitalize;">
+      <div class="card shadow-lg">
+        <div class="card-body">
+          <h5 class="card-title">
+            {{i.cat}}
+          </h5>
+          <img class="card-img " id="img-card" src="/media/{{i.image}} " alt="{{i.title}} ">
+          <h5 class="text-muted" style="text-transform: capitalize;">
+            {{i.name|slice:40}}
+          </h5>
+          <p class="text-muted">
+            price
+            <i class="fas fa-rupee-sign "> {{i.price }}</i>
+          </p>
+          <span class="badge badge-pill badge-warning">
+            Discount:-: {{i.discount}}
+          </span>
+          <div id="btn2">
+            <a class="btn btn-light mx-4" href="{% url 'cart_add' i.id %}" role="button">
+              add to cart
+            </a>
+            <a class="btn btn-light" href="{% url 'show_product' i.id %}" role="button">
+              quick view
+            </a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  {% endfor %}
+    {% endfor %}
 
-</div>
+  </div>
 
 </div>
 

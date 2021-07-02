@@ -39,9 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "user",
-    
+    'cart',    
     'crispy_forms',
-    'product'
+    'product',
+    'payments.apps.PaymentsConfig',
+
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [
@@ -63,6 +65,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'cart.context_processor.cart_total_amount',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -71,6 +74,7 @@ TEMPLATES = [
         },
     },
 ]
+CART_SESSION_ID = 'cart'
 
 WSGI_APPLICATION = 'selfie_studio.wsgi.application'
 
@@ -133,3 +137,6 @@ EMAIL_HOST='localhost'
 EMAIL_PORT=1025
 MEDIA_URL ='/media/'
 MEDIA_ROOT =os.path.join(BASE_DIR,'media')
+
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51IKd3GBDHjSn7prg5fJ8yCNKWa0Id16UqI0sBT6ENRjYf0sedm3pA22sJHSU7SLhi3PkeiTvQX62HfN7jfl9oizL00vyHQ3hSW'
+STRIPE_SECRET_KEY = 'sk_test_51IKd3GBDHjSn7prg2HORACA5R73rL56npIMHLRXH1lPNDpvjJvjuZLSKVSb6jVfiVBn1pdUo8pGsR0O0GBLqgjbm00b84X7gfY'

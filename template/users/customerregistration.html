@@ -1,8 +1,17 @@
 {% extends 'layout/base.html' %}
 {% load static %}
 
+{% block css %}
+    <style>
+        .signup{
+            margin-bottom: 200px;
+            margin-top: 40px;
+        }
+    </style>
+{% endblock css %}
+    
 {% block body %}
-<div class="container">
+<div class="container signup">
     <div class="row my-3">
         <div class="col-sm-6 offset-sm-3">
             <h3>Customer Registration</h3>

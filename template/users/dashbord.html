@@ -1,129 +1,205 @@
 {% extends 'layout/base.html' %}
 {% load static %}
 
+
 {% block css %}
 <style>
-    .div {
-        width: 80vh;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        border: 3px solid darkblue;
-        border-block-color: inherit;
-        box-shadow: 3px 8px 5px;
-        transform: translate(-50%, -50%);
+    #dashbord {
+        height: 99vh;
 
     }
 
-    a:hover {
-        text-decoration: none;
+    #dashbord1 {
+        height: 100vh;
+
+    }
+
+    #dashbord2 {
+        height: 100vh;
+        background-color: rgba(224, 240, 245, 0.938);
+    }
+
+    #dashbord3 {
+        height: 100vh;
+        background-color:lightgrey;
+    }
+
+    .dashbord li {
+        list-style: none;
+
 
 
     }
 
-    .login1 {
-        position: relative;
-        border: none;
-        margin: 4px;
-        background-color: darkblue;
+    .dashbord {
+        margin-top: 40px;
     }
 
-    .login1 a {
-        color: white;
+    .dashbord li a {
+        width: 150px;
+        margin-top: 20px;
     }
 
-    .login1 a :hover {
-        cursor: pointer;
-        text-decoration: none;
-    }
-
-    #logout {
-        text-transform: capitalize;
-        position: relative;
-        left: 182px;
-    }
-
-    #logout:hover {
-        color: rgb(6, 6, 48);
-        text-decoration: none;
-    }
-
-    #change_password {
-        text-transform: capitalize;
-        position: relative;
-        left: 190px;
-    }
-
-    #change_password:hover {
-        color: rgb(6, 6, 48);
-        text-decoration: none;
-    }
-
-    #user_profile {
-        height: 100px;
-        width: 100px;
-        position: relative;
-        top: 1px;
-        left: 238px;
-    }
-
-    #profile_title {
-        position: relative;
-
-        left: 209px;
-        text-transform: capitalize;
-    }
-
-    #user_name {
+    #dashbordname {
+        margin-left: 20px;
         position: relative;
         text-transform: capitalize;
-        left: 66px;
+        line-height: 2px;
+        top: 30px;
+        text-shadow: 1px 1px 2px blue;
+        letter-spacing: 2px;
+        font-size: x-large;
+        white-space: nowrap;
+
     }
 
-   
+    #headerdashbord {
+        margin-left: 6px;
+        margin-top: 10px;
+        letter-spacing: 2px;
+        font-size: x-large;
+        color: blue;
+        text-shadow: 1px 1px 1px blue;
+    }
 
-    #show_profile {
-        position: relative;
-        left: 310px;
+    .dashbordmorelink {
+        margin-top: 40px;
+    }
+
+    .dashbordmorelink li {
+        margin-top: 20px;
         text-transform: capitalize;
-        top: -22px;
-        font-size: larger;
+
     }
+
+    .dashbordmorelink li a {
+        width: 150px;
+    }
+    .dashbordfooter{
+        margin-top: 80px;
+        height: 50px;
+        width: 50px;
+        background-color: lavender;
+    }
+    #dashfooter{
+        list-style: none;
+        
+        
+    }
+    .dashuser{
+        background-color: lightcyan;
+        height: 70vh;
+        width: 50vw;
+        color: black;
+        position: relative;
+        left: 250px;
+        top: 60px;
+    }
+   .profilecard{
+       letter-spacing: 1.7px;
+       top: 100px;
+       width: 350px;
+       box-sizing: border-box;
+       left: 250px;
+       box-shadow: 1px 0.2px 0.3px 3px white;
+       
+
+   }
+   .imgprofile{
+       width: 200px;
+       position: relative;
+       top: 20px;
+       border-radius: 200px;
+       outline: 1px black;
+       height: 200px;
+       border: 1px solid whitesmoke;
+       left: 50px;
+       box-sizing: border-box;
+       box-shadow: 0.1px 0.2px 0.1px 0.6px white;
+   }
+   .editprofile{
+       position: relative;
+       top: 20px;
+       text-transform: capitalize;
+       letter-spacing: 0.9px;
+       left: 95%;
+   }
 </style>
 {% endblock css %}
 
 
-
-
-
 {% block body %}
-<div class="div">
-    <img src="{% static 'img/user_profile.png' %}" id="user_profile" alt="">
-    
+<span id="name">
 
-    <div class="card">
 
-        <div class="card-body">
-            <h4 class="card-title" id="profile_title">Dashbord</h4>
-            <h1 class="card-title"><strong>
-                    <p id="user_name"> welcome {{user.username|default:'Guest'}} </p>
-                </strong></h1>
-            {% if user.is_authenticated %}
-            <a href="{% url 'show_profile' %}" id="show_profile">show profile</a>
-            <a href="{% url 'logout' %}" id="logout">logout</a>
+</span>
+<div id="dashbord">
 
-            <a href="{% url 'password_change' %} " id="change_password">password_change</a>
+    <div class="row" id="dashbord1">
 
-            {% else %}
-            <div class="login">
-                <button class="login1"> <a href="{% url 'login' %}">login</a></button>
+        <div class="col-md-2" id="dashbord2">
+            <span id="dashbordname"> welcome {{user.username|default:'Guest'}} </span>
+            <ul class="dashbord">
 
+                {% if user.is_authenticated %}
+                <li><a class="btn btn-primary" href="{% url 'adderss' %}" role="button">adderss</a></li>
+                <li><a class="btn btn-primary" href="{% url 'password_change' %} " role="button">change password</a>
+                </li>
+                <li><a class="btn btn-primary" href="{% url 'logout' %}" role="button">Logout</a></li>
+                {% else %}
+                <li> <a class="btn btn-primary" href="{% url 'login' %}" role="button">Login</a></li>
+                <li> <a class="btn btn-primary" href="{% url 'registration' %}" role="button">Signup</a></li>
+                {% endif %}
+
+
+
+
+            </ul>
+            <ul class="dashbordmorelink" style="list-style: none;">
+                <li id="headerdashbord">
+                    More links
+                </li>
+
+                <li> <a class="btn btn-primary" href="{% url 'product' %}" role="button">product</a></li>
+                <li> <a class="btn btn-primary" href="#"role="button">order history</a></li>
+                <li> <a class="btn btn-primary" href="{% url 'contact_us' %}"role="button">contact_us</a></li>
+            </ul>
+             <ul class="dashbordfooter">
+                 <li id="dashfooter">
+                    <video  height="200px" width="200px" autoplay muted loop>
+                        <source src="{% static 'video/video.mp4' %}">
+                    </video>     
+                    <p style="text-transform: capitalize; white-space: nowrap;">
+                      now get perfect selfie with us
+                    </p>            
+                 </li>
+
+
+             </ul>
+        </div>
+        <div class="col-md-10" id="dashbord3">
+            <div class="dashuser">
+                 <a href="{% url 'edit_profile' %}" class="editprofile">edit</a>
+                
+                {% for pro in profile %}
+                <div class="card profilecard" style="background-color: lightcyan;">
+                    <img class="imgprofile" src="media/{{pro.img}}" alt=""  >
+                    <div class="card-body" style="background-color: lightcyan;">
+                        <hr>
+                        <h4 class="card-title">Name: {{pro.name}} </h4>
+                        <hr>
+                        <p class="card-text">Gender :{{pro.gender}} </p>
+                        <hr>
+                        <p class="card-text">Phone number: {{pro.phone}} </p>
+                        <hr>
+                        <p class="card-text">DOB: {{pro.DOB}} </p>
+                        <hr>
+                    </div>
+                </div>
+                    
+                {% endfor %}
+                    
             </div>
-            <div class="sing">
-                <button class="login1"> <a href="#">create new account</a></button>
-            </div>
-            {% endif %}
 
         </div>
     </div>
