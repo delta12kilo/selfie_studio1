@@ -68,6 +68,7 @@
 
 
 {% block body %}
+{% csrf_token %}
 <div class="container">
   <div class="row mt-5">
     <div class="col-sm-6">
@@ -77,7 +78,7 @@
         <div class="card-body">
           <h5>Product: Product 1</h5>
           <p>Quantity: 2</p>
-          <p class="fw-bold">Price: 100.00</p>
+          <p class="fw-bold">Price: <span id="price">100.00</span></p>
         </div>
       </div>
       <small>Term and Condition: Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, ullam saepe! Iure
@@ -105,14 +106,8 @@
             {% endfor %}
           </div>
         </div>
-
-
-
-
-
-
         <div class="text-end">
-          <button type="submit" class="btn btn-warning mt-3 px-5 fw-bold" id="submitBtn">Continue</button>
+          <button type="button" class="btn btn-warning mt-3 px-5 fw-bold" id="checkout-button">Continue</button>
         </div>
       </form>
     </div>
@@ -120,36 +115,37 @@
 </div>
 {% endblock body %}
 
-
-
 {% block js %}
+<script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
 <script src="https://js.stripe.com/v3/"></script>
 <script >
- console.log("Sanity check!");
-
-// Get Stripe publishable key
-fetch("/config/")
-.then((result) => { return result.json(); })
-.then((data) => {
-  // Initialize Stripe.js
-  const stripe = Stripe(data.publicKey);
-
-  // new
-  // Event handler
-  document.querySelector("#submitBtn").addEventListener("click", () => {
-    // Get Checkout Session ID
-    fetch("/create-checkout-session/")
-    .then((result) => { return result.json(); })
-    .then((data) => {
-      console.log(data);
-      // Redirect to Stripe Checkout
-      return stripe.redirectToCheckout({sessionId: data.sessionId})
+  const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+  const stripe = Stripe("{{pub_key}}");
+  // console.log(stripe);
+  const price = document.querySelector('#price').innerHTML;
+  const p = +price
+  // console.log(typeof(p));
+  const checkOut = document.getElementById('checkout-button');
+  checkOut.addEventListener('click', () => {
+    fetch("{% url 'create_checkout_session' %}?price=" + p, {
+      method: "POST",
+      headers: {
+        'X-CSRFToken': csrfToken
+      },
+    }).then((response)=>{
+      return response.json();
+    }).then((session) => {
+      return stripe.redirectToCheckout({sessionId: session.sessionId})
+    }).then((result) => {
+      if (result.error){
+        alert(result.error.message);
+      }
+    }).catch((err) => {
+      setTimeout(() => {
+        alert(err)
+      }, 1500);
     })
-    .then((res) => {
-      console.log(res);
-    });
-  });
-});
+  })
 </script>
 
 {% endblock js %}

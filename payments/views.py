@@ -14,37 +14,46 @@ import stripe
 # Create your views here.
 
 
-def purchase_item(request):
-    add = Adderss.objects.filter(user=request.user)
-    return render(request, "payment.html", {'add': add})
+# def purchase_item(request):
+#     add = Adderss.objects.filter(user=request.user)
+#     return render(request, "payment.html", {'add': add})
 
 
 @csrf_exempt
-def stripe_config(request):
+def purchase_item(request):
     if request.method == "GET":
+        add = Adderss.objects.filter(user=request.user)
         stripe_config = {'publicKey': settings.STRIPE_PUBLISHABLE_KEY}
-        return JsonResponse(stripe_config, safe=False)
+        # print(stripe_config)
+        # return JsonResponse(stripe_config, safe=False)
+        ctx = {'pub_key': stripe_config, 'add': add}
+        return render(request, "payment.html", ctx)
 
 
 @csrf_exempt
 def create_checkout_session(request):
     if request.method == 'GET':
         domain_url = "http://127.0.0.1:8000/"
-        stripe.api_key = settings.STRIPE_SECRET_KEY
+        # stripe.api_key = settings.STRIPE_SECRET_KEY
+
+        price = request.GET.get('price')
+        # print('price:', price)
         try:
             # product data
             checkout_session = stripe.checkout.Session.create(
-                success_url=domain_url +
-                'success?session_id={CHECKOUT_SESSION_ID}',
-                cancel_url=domain_url+'cancelled/',
+                
                 payment_method_types=['card'],
-                mode='payment',
-                line_items=[{
-                    'name': 'ABCD',
-                    'quantity': 5,
-                    'currency': 'inr',
-                    'amount': 200020,  # Rs  2000 and 20 paise
-                }]
+                line_items = [
+                    {
+                        'name': 'ABCD',
+                        'quantity': 1,
+                        'currency': 'inr',
+                        'amount': price,  # Rs  2000 and 20 paise
+                    },
+                ],
+                mode = 'payment',
+                success_url = domain_url+'/success',
+                cancle_url = domain_url+'/cancelled'
             )
             cart = Cart(request)
             cart.clear()

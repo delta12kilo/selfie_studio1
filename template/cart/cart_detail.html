@@ -83,7 +83,7 @@
 </div>
 {% else %}
 <div class="container  cart-detail">
-
+ 
     <h1 class="text-center  ">Shopping Cart</h1>
     <div class="row">
         <div class="col-sm-8">
@@ -118,12 +118,11 @@
                                     </p>
                                     <hr>
                                 </div>
-                                <a href="{% url 'item_increment' value.product_id %}" type="button" role="button"
-                                    class="btn btn-light"><i class="fas fa-plus"></i></a>
-                                <span class="quantity">{{value.quantity}} </span>
-
-                                <a href="{% url 'item_decrement' value.product_id %}" type="button" role="button"
-                                    class="btn btn-light"><i class="fas fa-minus"></i></a>
+                                <select name="qty" class="qtybox">
+                                    {% for i in "0123456789"|make_list %}
+                                    <option value ="{{forloop.counter}}">{{forloop.counter}}</option>
+                                    {% endfor %}
+                                </select>
                                 <br>
                                 <hr>
                                 <a href="{% url 'cart_clear' %}" type="button" role="button" class="btn btn-dark">Clear
@@ -157,19 +156,15 @@
                             <div>
                                 <strong>Total</strong> <small>(including VAT)</small>
                             </div>
-                            {% for key,value in request.session.cart.items %}
-
-                            <span class="total">
-                                {{ value.price|multiply:value.quantity }}
+                            
+                            <tr>
                                 
-                                
-                            </span>
-                            {% endfor %}
-
+                                <th>Rs. <span class="totalamt" id="totalprice">0.00</span></th>
+                            </tr>
 
                         </li>
                     </ul>
-                    <div class="d-grid"><a href="{% url 'purchase' %}" class="btn btn-block btn-primary">Place Order</a></div>
+                    <div class="d-grid"><a href="{% url 'purchase' %}" class="btn btn-block btn-primary" id="checkout-button">Place Order</a></div>
                 </div>
             </div>
         </div>
@@ -183,9 +178,33 @@
 
 
 <script>
- var a= document.querySelector('.total').innerHTML
- console.log(a)
+            $(function () {
+            // document.querySelector("body > div > table > tbody > tr.\\31 3 > td:nth-child(5)")
+            var total = 0.00
+            $('.price').each(function(i,v){
+                total+=parseInt(v.innerHTML)
+            });
+            
+            
+            $(".totalamt").text(total)
+            
+            $('.qtybox').change(function() {
+                qty = $(this).val()
+                price = $(this).closest('tr').find('td.price').text()
+                $(this).closest('tr').find('td:nth-child(5)').text(qty*price)
+                var total = 0.00
+                $('.price').each(function(i,v){
+                    total+=parseInt(v.innerHTML)
+                });
+                $(".totalamt").text(total)
+                
+            });
+            
+            
+        });
+    
 </script>
+
 
 {% endblock js %}
 
